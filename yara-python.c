@@ -728,7 +728,7 @@ int yara_callback(
 
       tuple = Py_BuildValue(
           "(L,s,O)",
-          m->offset,
+          m->base + m->offset,
           string->identifier,
           object);
 
@@ -911,7 +911,7 @@ PyObject* handle_error(
       return PyErr_Format(
         YaraError,
         "access denied");
-    case ERROR_INSUFICIENT_MEMORY:
+    case ERROR_INSUFFICIENT_MEMORY:
       return PyErr_NoMemory();
     case ERROR_COULD_NOT_OPEN_FILE:
       return PyErr_Format(
@@ -1945,7 +1945,7 @@ static PyObject* yara_compile(
       }
       else
       {
-        result = handle_error(ERROR_INSUFICIENT_MEMORY, NULL);
+        result = handle_error(ERROR_INSUFFICIENT_MEMORY, NULL);
       }
     }
 
